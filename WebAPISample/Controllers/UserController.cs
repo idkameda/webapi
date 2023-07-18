@@ -8,6 +8,9 @@ using System.Security.Claims;
 
 namespace WebAPISample.Controllers
 {
+    /// <summary>
+    /// Added summary
+    /// </summary>
     public class UserController : ApiController
     {
         [AllowAnonymous]
