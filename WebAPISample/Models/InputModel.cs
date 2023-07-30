@@ -12,9 +12,9 @@ namespace WebAPISample.Models
         {
             public string CrudType { get; set; }
 
-            public int YearIndex { get; set; }
+            public int YearIndex { get; set; } = 2024;
 
-            public int MonthIndex { get; set; }
+            public int MonthIndex { get; set; } = 1;
         }
     }
 }

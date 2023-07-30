@@ -18,10 +18,16 @@ namespace WebAPISample.Controllers
     public class MonthlyReportController : ApiController
     {
         [Route("api/MonthlyReport")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(InputModel.Criteria objModel)
         {
             DataSet dsEmployee = new DataSet();
             DataTable dtResult = new DataTable("Summary");
+            int Year = DateTime.Now.Year;
+            if (objModel != null)
+            {
+                Year = objModel.YearIndex;
+            }
+
             using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-KR9DDHA\SQLEXPRESS;Initial Catalog=BSE_NSE; User Id=sa; Password=P@$$;"))
             {
                 SqlCommand objSqlCommand = new SqlCommand("usp_GET_Monthly_Report_Year", con);
@@ -30,10 +36,44 @@ namespace WebAPISample.Controllers
                 try
                 {
                     objSqlCommand.Parameters.Add("@YearIN", SqlDbType.Int);
-                    objSqlCommand.Parameters["@YearIN"].Value = 2023;
+                    objSqlCommand.Parameters["@YearIN"].Value = Year;
                     objSqlDataAdapter.Fill(dsEmployee);
 
                     if(dsEmployee!=null && dsEmployee.Tables.Count > 0)
+                    {
+                        dtResult = dsEmployee.Tables[0];
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+            return Ok(dtResult);
+        }
+        [Route("api/MonthlyReport")]
+        public IHttpActionResult Post(InputModel.Criteria objModel)
+        {
+            DataSet dsEmployee = new DataSet();
+            DataTable dtResult = new DataTable("Summary");
+            int Year = DateTime.Now.Year;
+            if (objModel != null)
+            {
+                Year = objModel.YearIndex;
+            }
+
+            using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-KR9DDHA\SQLEXPRESS;Initial Catalog=BSE_NSE; User Id=sa; Password=P@$$;"))
+            {
+                SqlCommand objSqlCommand = new SqlCommand("usp_GET_Monthly_Report_Year", con);
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter objSqlDataAdapter = new SqlDataAdapter(objSqlCommand);
+                try
+                {
+                    objSqlCommand.Parameters.Add("@YearIN", SqlDbType.Int);
+                    objSqlCommand.Parameters["@YearIN"].Value = Year;
+                    objSqlDataAdapter.Fill(dsEmployee);
+
+                    if (dsEmployee != null && dsEmployee.Tables.Count > 0)
                     {
                         dtResult = dsEmployee.Tables[0];
                     }
