@@ -135,6 +135,7 @@
     <Compile Include="AuthenticationStartup.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonthlyReportController.cs" />
+    <Compile Include="Controllers\MonthlyReportDetailsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\MonthlyReportDetails\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <PropertyGroup>
